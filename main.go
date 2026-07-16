@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strings"
 	"sync"
+        "os"
 )
 
 const Password = "4BU3L4_M4R14_LU154"
@@ -112,8 +113,13 @@ func main() {
 
 	fmt.Println("Listening on :10000")
 
-	err := http.ListenAndServe(":10000", nil)
-	if err != nil {
-		panic(err)
-	}
+	port := os.Getenv("PORT")
+        if port == "" {
+            port = "10000"
+        }
+
+        err := http.ListenAndServe(":"+port, nil)
+        if err != nil {
+            panic(err)
+        }
 }
